@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Портал поставщиков</title>
+    <link rel="stylesheet" href="/static/skeleton.css">
+    <link rel="stylesheet" href="/static/custom.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script>
+        function updateCartCount() {
+            if(!Cookies.get("cart")) {
+                Cookies.set("cart", "[]");
+            }
+            const len = JSON.parse(Cookies.get("cart")).length;
+            document.getElementById("count").innerText = len > 0 ? `(${len})` : '';
+        }
+
+        function addToCart(id) {
+            const cart = JSON.parse(Cookies.get("cart"));
+            if(cart.includes(id)) return alert("Товар уже в корзине!");
+            cart.push(id);
+            Cookies.set("cart", JSON.stringify(cart));
+            updateCartCount();
+            alert("Добавлено в корзину!");
+        }
+    </script>
+</head>
+<body class="content">
+<div class="container content">
+    <div class="navbar-spacer"></div>
+    <nav class="navbar">
+        <div class="container">
+            <ul class="navbar-list">
+                <li class="navbar-item"><a href="/" class="navbar-link">
+                        <img class="navbar-image" src="/static/pp_logo.svg" alt="logo">
+                    </a></li>
+                <li class="navbar-item"><a href="/" class="navbar-link">
+                        Каталог
+                    </a></li>
+                <li class="navbar-item"><a href="/" class="navbar-link">
+                        Поддержка
+                    </a></li>
+                <li class="navbar-item right"><a href="/cart" class="navbar-link">
+                        Корзина <span id="count">(0)</span>
+                    </a></li>
+            </ul>
+        </div>
+    </nav>

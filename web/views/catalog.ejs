@@ -1,0 +1,53 @@
+<%- include('header'); %>
+<div class="container">
+    <div class="row">
+        <div class="four columns category">
+            <div>
+                <img src="/static/1.svg">
+                <strong>БУМАГА</strong>
+                <a href="#">Бумага для офисной техники</a>
+                <a href="#">Бумага для широкоформатных принтеров и чертежных работ</a>
+                <a href="#">Бумага микалентная</a>
+                <a href="#">Гофрокартон</a>
+                <a href="#">Самоклеящаяся бумага</a>
+                <a href="#">Картон канцелярский</a>
+            </div>
+        </div>
+        <div class="four columns category">
+            <div>
+                <img src="/static/2.svg">
+                <strong>БЫТОВАЯ ТЕХНИКА</strong>
+                <a href="#">Бумага для офисной техники</a>
+                <a href="#">Бумага для широкоформатных принтеров и чертежных работ</a>
+                <a href="#">Бумага микалентная</a>
+                <a href="#">Гофрокартон</a>
+                <a href="#">Самоклеящаяся бумага</a>
+                <a href="#">Картон канцелярский</a>
+            </div>
+        </div>
+        <div class="four columns category">
+            <div>
+                <img src="/static/3.svg">
+                <strong>БЫТОВАЯ ХИМИЯ</strong>
+                <a href="#">Бумага для офисной техники</a>
+                <a href="#">Бумага для широкоформатных принтеров и чертежных работ</a>
+                <a href="#">Бумага микалентная</a>
+                <a href="#">Гофрокартон</a>
+                <a href="#">Самоклеящаяся бумага</a>
+                <a href="#">Картон канцелярский</a>
+            </div>
+
+        </div>
+    </div>
+</div><br>
+<div class="container">
+    <h2>Популярное</h2>
+</div>
+<div class="container flex content">
+    <% items.forEach(function(item){ %>
+        <div class="card">
+            <%- include('card', {...item, link: "/item/"+item.id}); %>
+        </div>
+    <% }); %>
+</div>
+<%- include('footer'); %>

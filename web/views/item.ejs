@@ -1,0 +1,35 @@
+<%- include('header'); %>
+<div class="container">
+    <em><%= item.category %></em>
+    <h3><%= item.name %></h3>
+    <div class="flex item-info">
+        <img class="item-image" src="https://zakupki.mos.ru/newapi/api/Core/Thumbnail/<%= item.imageId %>/300/300">
+        <div>
+            <em>Страна-производитель: <%= item.country %></em>
+            <h4><strong><%= item.price %></strong></h4>
+            <p>На основе <%= item.offers.length %> предложений поставщиков</p>
+            <button class="button-primary" onclick="addToCart(<%= item.id %>)">Добавить в корзину</button>
+        </div>
+    </div><br>
+    <h4>Характеристики</h4>
+    <table class="u-full-width">
+        <tbody>
+
+        <% item.info.forEach(function(info){ %>
+            <tr>
+                <td><strong><%= info["Name"] %></strong></td>
+                <td><%= info["Value"] + (!info.hasOwnProperty("Unit") ? "" : " " +info["Unit"]) %></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+    <h4>Похожие товары</h4>
+    <div class="flex">
+        <% recommended.forEach(function(similar){ %>
+            <div class="card">
+                <%- include('card', {...similar, link: "/item/"+item.id}); %>
+            </div>
+        <% }); %>
+    </div>
+</div>
+<%- include('footer'); %>
