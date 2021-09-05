@@ -3,3 +3,18 @@ services:
     build: web/
     ports:
       - 3000:3000
+  mysql:
+    image: mariadb:latest
+    command: --secure-file-priv=/var/lib/mysql/
+    environment:
+      MARIADB_ROOT_PASSWORD: 'root'
+      MARIADB_USER: 'user'
+      MARIADB_PASS: 'password'
+    ports:
+      - 3306:3306
+    volumes:
+      - my-datavolume:/var/lib/mysql
+    cap_add:
+      - SYS_NICE
+volumes:
+  my-datavolume:

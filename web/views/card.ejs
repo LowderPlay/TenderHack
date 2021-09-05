@@ -1,6 +1,6 @@
 <div class="container card-content">
-    <img class="card-image" src="https://zakupki.mos.ru/newapi/api/Core/Thumbnail/<%= imageId %>/300/300">
-    <a href="<%- link %>"><strong><%= name %></strong></a>
-    <p><%= offers.length %> поставщик(ов)</p>
-    <strong><%= price %></strong>
+    <img class="card-image" src="<%= item.image %>">
+    <a href="<%- item.link %>"><strong><%= item['Наименование СТЕ'] %></strong></a>
+    <p><%= (item['Поставщики'].match(/SupplierId/g) || []).length %> поставщик(ов)</p>
+    <strong><%= item['Цена'] ? JSON.parse(item['Цена'])[0]['Cost']+" руб." : "Нет в наличии" %></strong>
 </div>

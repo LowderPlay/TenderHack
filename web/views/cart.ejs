@@ -13,14 +13,14 @@
     <% items.forEach(function(item){ %>
         <div class="row cart-item">
             <div class="three columns">
-                <img class="card-image" src="https://zakupki.mos.ru/newapi/api/Core/Thumbnail/<%= item.imageId %>/300/300">
+                <img class="card-image" src="<%= item.image %>">
             </div>
             <div class="five columns">
-                <strong><%= item.name %></strong><br>
-                <em><%= item.offers[0] %></em>
+                <strong><%= item['Наименование СТЕ'] %></strong><br>
+                <em><%= JSON.parse(item['Поставщики'].replace(/""/g, '\\"'))[0]['Name'] %></em>
             </div>
             <div class="two columns">
-                <%= item.price %>
+                <%= item['Цена'] ? JSON.parse(item['Цена'])[0]['Cost'] : "Нет в наличии" %>
             </div>
             <div class="two columns vertical">
                 <button>+</button>0<button>-</button>

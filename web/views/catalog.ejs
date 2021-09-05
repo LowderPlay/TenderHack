@@ -46,7 +46,7 @@
 <div class="container flex content">
     <% items.forEach(function(item){ %>
         <div class="card">
-            <%- include('card', {...item, link: "/item/"+item.id}); %>
+            <%- include('card', {item:{...item, link: "/item/"+item['Идентификатор СТЕ']}}); %>
         </div>
     <% }); %>
 </div>

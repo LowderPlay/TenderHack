@@ -1,21 +1,21 @@
 <%- include('header'); %>
 <div class="container">
-    <em><%= item.category %></em>
-    <h3><%= item.name %></h3>
+    <em><%= item['Категория'] %></em>
+    <h3><%= item['Наименование СТЕ'] %></h3>
     <div class="flex item-info">
-        <img class="item-image" src="https://zakupki.mos.ru/newapi/api/Core/Thumbnail/<%= item.imageId %>/300/300">
+        <img class="item-image" src="<%= item.image %>">
         <div>
-            <em>Страна-производитель: <%= item.country %></em>
-            <h4><strong><%= item.price %></strong></h4>
-            <p>На основе <%= item.offers.length %> предложений поставщиков</p>
-            <button class="button-primary" onclick="addToCart(<%= item.id %>)">Добавить в корзину</button>
+            <em>Страна-производитель: <%= item['Страна происхождения'] %></em>
+            <h4><strong><%= item['Цена'] ? JSON.parse(item['Цена'])[0]['Cost'] : "Нет в наличии" %></strong></h4>
+            <p>На основе <%= (item['Поставщики'].match(/SupplierId/g) || []).length %> предложений поставщиков</p>
+            <button class="button-primary" onclick="addToCart(<%= item['Идентификатор СТЕ'] %>)">Добавить в корзину</button>
         </div>
     </div><br>
     <h4>Характеристики</h4>
     <table class="u-full-width">
         <tbody>
 
-        <% item.info.forEach(function(info){ %>
+        <% JSON.parse(item['Характеристики СТЕ']).forEach(function(info){ %>
             <tr>
                 <td><strong><%= info["Name"] %></strong></td>
                 <td><%= info["Value"] + (!info.hasOwnProperty("Unit") ? "" : " " +info["Unit"]) %></td>
@@ -27,7 +27,7 @@
     <div class="flex">
         <% recommended.forEach(function(similar){ %>
             <div class="card">
-                <%- include('card', {...similar, link: "/item/"+item.id}); %>
+                <%- include('card', {item:{...similar, link: "/item/"+item['Идентификатор СТЕ']}}); %>
             </div>
         <% }); %>
     </div>
