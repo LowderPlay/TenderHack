@@ -17,10 +17,10 @@
             </div>
             <div class="five columns">
                 <strong><%= item['Наименование СТЕ'] %></strong><br>
-                <em><%= JSON.parse(item['Поставщики'].replace(/""/g, '\\"'))[0]['Name'] %></em>
+                <em><%= (item['Поставщики'].match(/SupplierId/g) || []).length %> поставщик(ов)</em>
             </div>
             <div class="two columns">
-                <%= item['Цена'] ? JSON.parse(item['Цена'])[0]['Cost'] : "Нет в наличии" %>
+                <%= item['Цена'] ? JSON.parse(item['Цена'])[0]['Cost']+" руб." : "Нет в наличии" %>
             </div>
             <div class="two columns vertical">
                 <button>+</button>0<button>-</button>
@@ -33,7 +33,7 @@
 <div class="flex">
     <% recommended.forEach(function(item){ %>
         <div class="card">
-            <%- include('card', {...item, link: "/item/"+item.id}); %>
+            <%- include('card', {item:{...item, link: "/item/"+item['Идентификатор СТЕ']}}); %>
         </div>
     <% }); %>
 </div>

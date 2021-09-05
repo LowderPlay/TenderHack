@@ -3,6 +3,7 @@ services:
     build: web/
     ports:
       - 3000:3000
+    restart: always
   mysql:
     image: mariadb:latest
     command: --secure-file-priv=/var/lib/mysql/
@@ -16,5 +17,6 @@ services:
       - my-datavolume:/var/lib/mysql
     cap_add:
       - SYS_NICE
+    restart: always
 volumes:
   my-datavolume:
