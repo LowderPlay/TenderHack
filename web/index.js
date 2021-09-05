@@ -31,14 +31,21 @@ app.set('view engine', 'ejs');
 app.use('/static', express.static('static'));
 
 app.get('/cart', (req, res) => {
-    const cart = JSON.parse(req.cookies.cart).join(",");
-    connection.query(`SELECT * FROM dataset_new WHERE \`Идентификатор СТЕ\` IN (${cart});`,
-        async function (error, results, fields) {
+    const cartIds = JSON.parse(req.cookies.cart).join(",");
+    connection.query(`SELECT * FROM dataset_new WHERE \`Идентификатор СТЕ\` IN (${cartIds});`,
+        async function (error, cart, fields) {
             if (error && cart.length !== 0) throw error;
-            res.render("cart", {
-                items: await Promise.all(addImages(cart.length !== 0 ? results : [])),
-                recommended: []
-            });
+            connection.query(`
+SELECT * FROM dataset_new WHERE 
+(\`Категория\` IN (${cart.map(item=>'\''+item['Категория']+'\'').join(",")}) AND \`Идентификатор СТЕ\` NOT IN (${cartIds})) 
+ORDER BY \`Просмотры\` DESC LIMIT 4`,
+                async function (error, results, fields) {
+                    if (error && cart.length !== 0) throw error;
+                    res.render("cart", {
+                        items: await Promise.all(addImages(cartIds.length !== 0 ? cart : [])),
+                        recommended: await Promise.all(addImages(cartIds.length !== 0 ? results : []))
+                    });
+                });
         });
 
 
